@@ -11,21 +11,21 @@ void System::check_situation()
     // per quanto riguarda i componenti in attesa:
 	if (month_orders.size() != 0)
 	{
-	    for (auto vect : month_orders)  // per ogni vettore
+	    for (auto& vect : month_orders)  // per ogni vettore
         {
             std::vector<elettrodomestico> tmp;
-            for (auto x : vect)  // per ogni elettrodomestico x
+            for (auto& x : vect)  // per ogni elettrodomestico x
             {
                 int contatore = 0;
-                for (auto elem : x.componenti)  // per ogni elemento nel vettore delle componenti (cioè per ogni componente)
-                {   
+                for (auto& elem : x.componenti)  // per ogni elemento nel vettore delle componenti (cioè per ogni componente)
+                {
                     if (elem.mesi_attesa == 0)
-                    {   // QUI C'È UN BUG, NON RIESCO AD ENTRARE IN QUESTO CICLO
+                    {
                         vettore_temporaneo.push_back(elem);  // mi serve per il print()
-                        if (contatore == x.componenti.size())   // se sono tutti pronti
+                        if (contatore == x.componenti.size()-1)   // se sono tutti pronti
                         {
                             tmp.push_back(x);   // mi salvo l'elettrodomestico pronto per la produzione sul vettore tmp
-                            elem.mesi_attesa = -1;  // vuol dire che non lo vogli più considerare in month_orders
+                            elem.mesi_attesa = -1;  // vuol dire che non lo voglio più considerare in month_orders
                         }
                         contatore++;  // vado avanti a contare, quando tutti i componenti avranno da attendere 0 mesi, il contatore sarà il numero dei componenti
                     }
